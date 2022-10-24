@@ -16,6 +16,11 @@
   {%endif%}
 </div>
 <h1><i>Your To Do List {{color}}</i></h1>
+
+<div class="small" >
+  Date :{% now "  jS F Y H:i" %}
+</div> 
+
 <div id="search-add-wrapper">
   <form method="GET" style="display: flex; margin-top: 20px">
     <input type="text" name="search-area" value="{{search_input}}" />
