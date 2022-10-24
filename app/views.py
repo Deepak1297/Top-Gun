@@ -16,7 +16,7 @@ from .models import Task
 # Create your views here.
 
 
-class CustomLoginView(LoginView):
+class CustomLogin(LoginView):
     template_name = 'app/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
@@ -25,7 +25,7 @@ class CustomLoginView(LoginView):
         return reverse_lazy('tasks')
 
 
-class RegisterPage(FormView):
+class RegisterationPage(FormView):
     template_name = 'app/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
@@ -35,12 +35,12 @@ class RegisterPage(FormView):
         user = form.save()
         if user is not None:
             login(self.request, user)
-        return super(RegisterPage, self).form_valid(form)
+        return super(RegisterationPage, self).form_valid(form)
 
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
             return redirect('tasks')
-        return super(RegisterPage, self).get(*args, **kwargs)
+        return super(RegisterationPage, self).get(*args, **kwargs)
 
 
 class TaskList(LoginRequiredMixin, ListView):
@@ -60,23 +60,23 @@ class TaskList(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskDetail(LoginRequiredMixin, DetailView):
+class TaskDetails(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
     template_name = 'app/task.html'
 
 
-class TaskCreate(LoginRequiredMixin, CreateView):
+class CreateTasks(LoginRequiredMixin, CreateView):
     model = Task
     fields = '__all__'
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        return super(TaskCreate, self).form_valid(form)
+        return super(CreateTasks, self).form_valid(form)
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
+class UpdateTasks(LoginRequiredMixin, UpdateView):
     model = Task
     fields = '__all__'
     success_url = reverse_lazy('tasks')
