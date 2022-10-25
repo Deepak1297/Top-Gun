@@ -15,9 +15,11 @@
   <a href="{% url 'login' %}">Login</a>
   {%endif%}
 </div>
-<div class="small">Today's Date is{% now " jS F, Y " %}</div>
-
 <h1><i>Your To Do List {{color}}</i></h1>
+
+<div class="small" >
+  Date :{% now "   Y-m-d" %}
+</div> 
 <div id="search-add-wrapper">
   <form method="GET" style="display: flex; margin-top: 20px">
     <input type="text" name="search-area" value="{{search_input}}" />
@@ -35,8 +37,8 @@
       <i
         ><a href="{% url 'task-update' task.id %}" style="color: #008000" ;
           >{{task.title}} <span>&#9989;</a
-        ></i
-      >
+        ></i>
+       
     </div>
     <a class="delete-task-link" href="{% url 'task-delete'  task.id%}"
       >&#10006;</a
